@@ -1,0 +1,34 @@
+# This file verifies that C++ sends correct messages to Hyena
+C++ -> Hyena
+
+# List columns
+-c columns -> ListColumns
+
+# Get catalog
+-c catalog -> RefreshCatalog
+
+# Add column
+-c addcolumn -n ColumnName -t i8dense                  -> AddColumn {column_name: "ColumnName", column_type: I8Dense}
+-c addcolumn -n ColumnName -t i16dense                 -> AddColumn {column_name: "ColumnName", column_type: I16Dense}
+-c addcolumn -n ColumnName -t i32dense                 -> AddColumn {column_name: "ColumnName", column_type: I32Dense}
+-c addcolumn -n ColumnName -t i64dense                 -> AddColumn {column_name: "ColumnName", column_type: I64Dense}
+-c addcolumn -n ColumnName -t i128dense                -> AddColumn {column_name: "ColumnName", column_type: I128Dense}
+-c addcolumn -n ColumnName -t i8sparse                 -> AddColumn {column_name: "ColumnName", column_type: I8Sparse}
+-c addcolumn -n ColumnName -t i16sparse                -> AddColumn {column_name: "ColumnName", column_type: I16Sparse}
+-c addcolumn -n ColumnName -t i32sparse                -> AddColumn {column_name: "ColumnName", column_type: I32Sparse}
+-c addcolumn -n ColumnName -t i64sparse                -> AddColumn {column_name: "ColumnName", column_type: I64Sparse}
+-c addcolumn -n ColumnName -t i128sparse               -> AddColumn {column_name: "ColumnName", column_type: I128Sparse}
+-c addcolumn -n ColumnName -t u8dense                  -> AddColumn {column_name: "ColumnName", column_type: U8Dense}
+-c addcolumn -n ColumnName -t u16dense                 -> AddColumn {column_name: "ColumnName", column_type: U16Dense}
+-c addcolumn -n ColumnName -t u32dense                 -> AddColumn {column_name: "ColumnName", column_type: U32Dense}
+-c addcolumn -n ColumnName -t u64dense                 -> AddColumn {column_name: "ColumnName", column_type: U64Dense}
+-c addcolumn -n ColumnName -t u128dense                -> AddColumn {column_name: "ColumnName", column_type: U128Dense}
+-c addcolumn -n ColumnName -t u8sparse                 -> AddColumn {column_name: "ColumnName", column_type: U8Sparse}
+-c addcolumn -n ColumnName -t u16sparse                -> AddColumn {column_name: "ColumnName", column_type: U16Sparse}
+-c addcolumn -n ColumnName -t u32sparse                -> AddColumn {column_name: "ColumnName", column_type: U32Sparse}
+-c addcolumn -n ColumnName -t u64sparse                -> AddColumn {column_name: "ColumnName", column_type: U64Sparse}
+-c addcolumn -n ColumnName -t u128sparse               -> AddColumn {column_name: "ColumnName", column_type: U128Sparse}
+-c addcolumn -n ColumnName -t stringdense              -> AddColumn {column_name: "ColumnName", column_type: StringDense}
+-c addcolumn -n ColumnName -t stringsparse             -> AddColumn {column_name: "ColumnName", column_type: StringSparse}
+-c addcolumn -n "A column name with spaces" -t i8dense -> AddColumn {column_name: "A column name with spaces", column_type: I8Dense}
+-c addcolumn -n ZażółćGęśląJaźń -t i8dense             -> AddColumn {column_name: "ZażółćGęśląJaźń", column_type: I8Dense}
