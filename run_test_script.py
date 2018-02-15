@@ -58,6 +58,7 @@ def run_script(filename):
         else:
             counters['failed'] += 1
             print("{2}: {0}  --->  {1}".format(raw_input, output, FAIL))
+            print("\tExp '{0}'".format(output))
             print("\tGot '{0}'".format(ver))
     print("\nRun {0} tests, {1} passed, {2} failed".format(len(lines[1:]), counters['passed'], counters['failed']))
 
