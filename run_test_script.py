@@ -18,33 +18,47 @@ BOLD = '\033[1m'
 PASS = GREEN + "PASS" + ENDC
 FAIL = RED + "FAIL" + ENDC
 
+DEVNULL = open(os.devnull, 'w')
+
+TEST_REPORT = "{2}: {0}  --->  {1}"
+
+def get_generator(line):
+    from_lang, _ = line.split("->")
+    return gens[from_lang.strip().upper()]
+
+def get_verify(line):
+    _, to_lang = line.split("->")
+    return vers[to_lang.strip().upper()]
+
+def is_empty_or_comment(line):
+    l = line.strip()
+    return l.startswith("#") or l == ""
+
+
 def run_script(filename):
-    lines = [l.strip() for l in open(filename).readlines() 
-             if not l.strip().startswith("#") and not l.strip() == ""]
-    from_lang, to_lang = lines[0].split("->")
-    from_lang = from_lang.strip().upper()
-    to_lang = to_lang.strip().upper()
-    devnull = open(os.devnull, 'w')
+    lines = [l.strip() for l in open(filename).readlines() if not is_empty_or_comment(l)]
     counters = {'passed': 0, 'failed': 0}
-    for line in lines[1:]:
+    generator = get_generator(lines[0])
+    verifier = get_verify(lines[0])
+    for line in lines[1:]: # first line is used to get generator and verifier
         raw_input, output = line.split("->")
         input = shlex.split(raw_input)
         output = output.strip()
         try:
-            call([gens[from_lang], "-o", "output.bin"] + input, stdout=devnull)
-            ver = check_output([vers[to_lang], "output.bin"], universal_newlines=True).strip()
+            call([generator, "-o", "output.bin"] + input, stdout=DEVNULL)
+            ver = check_output([verifier, "output.bin"], universal_newlines=True).strip()
         except CalledProcessError as e:
             print(FAIL + ": input " + raw_input)
             print(FAIL + ": " + str(e))
             counters['failed'] += 1
             continue
-        passed = PASS if ver==output else FAIL
-        print("{2}: {0}  --->  {1}".format(raw_input, output, passed))
-        if not ver == output:
-            counters['failed'] += 1
-            print("\tGot '{0}'".format(ver))
-        else:
+        if ver == output:
             counters['passed'] += 1
+            print("{2}: {0}  --->  {1}".format(raw_input, output, PASS))
+        else:
+            counters['failed'] += 1
+            print("{2}: {0}  --->  {1}".format(raw_input, output, FAIL))
+            print("\tGot '{0}'".format(ver))
     print("\nRun {0} tests, {1} passed, {2} failed".format(len(lines[1:]), counters['passed'], counters['failed']))
 
 if __name__ == "__main__":
