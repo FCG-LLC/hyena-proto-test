@@ -1,4 +1,4 @@
-all: build-hyena build-cpp
+all: build-hyena build-cpp build-java
 	@for script in `ls script`; do \
 		python3 run_test_script.py script/$$script; \
 	done
@@ -11,8 +11,11 @@ build-cpp:
 
 build-hyena:
 	@cd hyena-edge/hyena-api; \
-		cargo build --features=parse_msg --bin parse_msg; \
-		cd ../..
+		cargo build --features=parse_msg --bin parse_msg
+
+build-java:
+	@cd hyena-api; \
+		./gradlew gentestJar
 
 .PHONY: clean
 clean: clean-cpp clean-hyena

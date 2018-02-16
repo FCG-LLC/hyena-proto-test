@@ -3,7 +3,8 @@ import os
 import shlex
 
 gens = {
-    'C++': 'hyena-cpp/build/bin/gen_test_out',
+    'C++': ['hyena-cpp/build/bin/gen_test_out'],
+    'JAVA': ['java', '-jar', 'hyena-api/build/libs/hyena-api-gentest-0.1-SNAPSHOT.jar']
 }
 
 vers = {
@@ -45,7 +46,7 @@ def run_script(filename):
         input = shlex.split(raw_input)
         output = output.strip()
         try:
-            call([generator, "-o", "output.bin"] + input, stdout=DEVNULL)
+            call([*generator, "-o", "output.bin"] + input, stdout=DEVNULL)
             ver = check_output([verifier, "output.bin"], universal_newlines=True).strip()
         except CalledProcessError as e:
             print(FAIL + ": input " + raw_input)
