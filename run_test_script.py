@@ -30,6 +30,9 @@ class TestStats(object):
         self.passed = passed
         self.failed = failed
 
+    def all_passed(self):
+        return self.tests == self.passed
+
 class TestResults(object):
     def __init__(self):
         self.stats = []
@@ -45,6 +48,9 @@ class TestResults(object):
 
     def passed(self):
         return sum([s.passed for s in self.stats])
+
+    def all_passed(self):
+        return self.count() == self.passed()
 
 def get_generator(line):
     from_lang, _ = line.split("->")
@@ -97,7 +103,9 @@ def run_scripts_dir(dir):
 
     print("\nRun {0} tests, {1} passed, {2} failed".format(test_results.count(), test_results.passed(), test_results.failed()))
     for stat in test_results.stats:
-        print("{0:>16}: {1:3d} tests, {2:3d} passed, {3:3d} failed".format(stat.name, stat.tests, stat.passed, stat.failed))
+        print("{0:>16}: {4} {1:3d} tests, {2:3d} passed, {3:3d} failed"
+              .format(stat.name, stat.tests, stat.passed, stat.failed,
+                      PASS if stat.all_passed() else FAIL))
 
 def dispatch(dir_or_file):
     if not os.path.exists(dir_or_file):
