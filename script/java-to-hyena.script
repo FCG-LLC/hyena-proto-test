@@ -70,7 +70,7 @@ Java -> Hyena
 
 ## Scan
 # No filter
--c scan -m 12345 -x 98765 -i 1                              -> Scan {min_ts: 12346, max_ts: 98765, partition_ids: #0, projection: [1], filters: []}
+-c scan -m 12345 -x 98765 -i 1                              -> Scan {min_ts: 12345, max_ts: 98765, partition_ids: #0, projection: [1], filters: []}
 # Multiple columns in projection
 -c scan -m 12345 -x 98765 -i 1 -i 2 -i 23 -i 34             -> Scan {min_ts: 12345, max_ts: 98765, partition_ids: #0, projection: [1, 2, 23, 34], filters: []}
 # Partition encoded
