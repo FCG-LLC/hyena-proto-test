@@ -1,7 +1,5 @@
 all: build-hyena build-cpp build-java
-	@for script in `ls script`; do \
-		python3 run_test_script.py script/$$script; \
-	done
+	@python3 run_test_script.py script
 
 build-cpp:
 	@mkdir -p hyena-cpp/build && \
