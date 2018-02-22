@@ -4,6 +4,17 @@ Here's where unit tests for Hyena protocol are. There is a single Python file th
 tests scripts. This repository depends on `hyena-engine`, `hyena-cpp` and `hyena-app` for binaries 
 for generating tests output (serialized messages) and verifying the messages.
 
+## TLDR
+
+Type `make` to run all tests. It will compile all dependencies and than run test scripts. You'll see a line with PASS/FAIL for 
+each of the tests, and then a summary not unlike the following:
+
+```
+Run 136 tests, 136 passed, 0 failed
+    C++ -> Hyena: PASS  68 tests,  68 passed,   0 failed
+   Java -> Hyena: PASS  68 tests,  68 passed,   0 failed
+```
+
 ## Script format
 
 ### Test header
@@ -71,6 +82,46 @@ For example:
 which would insert 10 random rows (`-r 10`) of  signed 8-bit integers (`-t i8dense`) into a dense column number
 3 (`-i 3`) as a source id 321 (`-s 321`).
 
+## Java generator 
+
+`GenTest` in `hyena-api` is used to create and serialize a valid Hyena request. It takes similar arguments as C++ generator
+([see above](https://github.com/FCG-LLC/hyena-proto-test#c-generator)), and can by run by:
+
+```
+java -jar hyena-api/build/libs/hyena-api-gentest-0.1-SNAPSHOT.jar <options>
+```
+
+## Hyena generator
+
+`gen_test_out` in `hyena-engine/hyena-api` is used to create and serialize a valid Hyena reply. It takes the following arguments:
+
+```
+> target/debug/gen_test_out -h
+Protocol test generator 0.1
+Generates serialized messages for automated protocol tests.
+
+USAGE:
+    gen_test_out [OPTIONS] --command <command> --output <output>
+
+FLAGS:
+    -h, --help       Prints help information
+    -V, --version    Prints version information
+
+OPTIONS:
+    -d, --column-data <column data>...    Number of data rows returned from scan for the column
+    -i, --column-id <column id>...        Column id
+    -n, --column-name <column name>...    Column name
+    -t, --column-type <column type>...    Column type
+    -c, --command <command>
+            The command [values: columns, catalog, addcolumn, insert, scan, serializeerror]
+
+    -w, --error-param <error param>       Error parameter
+    -e, --error-type <error type>         Error type
+    -o, --output <output>                 The file to put the serialized message to
+    -p, --partition <partitions>          Number of partitions [default: 0]
+    -r, --rows <rows>                     Number of inserted rows
+
+```
 
 ## Hyena verifier
 
