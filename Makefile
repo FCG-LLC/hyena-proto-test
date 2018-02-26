@@ -9,7 +9,8 @@ build-cpp:
 
 build-hyena:
 	@cd hyena-edge/hyena-api; \
-		cargo build --features=parse_msg --bin parse_msg
+		cargo build --features=parse_msg --bin parse_msg; \
+		cargo build --features=gen_test_out --bin gen_test_out
 
 build-java:
 	@cd hyena-api; \

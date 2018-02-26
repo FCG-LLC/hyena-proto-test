@@ -4,11 +4,13 @@ import shlex
 
 gens = {
     'C++': ['hyena-cpp/build/bin/gen_test_out'],
-    'JAVA': ['java', '-jar', 'hyena-api/build/libs/hyena-api-gentest-0.1-SNAPSHOT.jar']
+    'JAVA': ['java', '-jar', 'hyena-api/build/libs/hyena-api-gentest-0.1-SNAPSHOT.jar'],
+    'HYENA': ['hyena-edge/target/debug/gen_test_out']
 }
 
 vers = {
-    'HYENA': 'hyena-edge/target/debug/parse_msg'
+    'HYENA': 'hyena-edge/target/debug/parse_msg',
+    'C++': 'hyena-cpp/build/bin/parse_msg'
 }
 
 GREEN = '\033[92m'
