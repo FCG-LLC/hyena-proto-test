@@ -31,10 +31,10 @@ First non-empty line of the test script defines which binaries are used for gene
 Both `generator` and `verifier` can have following values: `C++`, `Java` and `Hyena`. The meaning of those is:
 
 * Generator `C++`: use `gen_test_out` from `hyena-cpp` to write serialized requests to a file.
-* Generator `Java`: TBD
-* Generator `Hyena`: TBD (use `gen_test_out` from `hyena-engine/hyena-api` to write serialized replies to a file.
-* Verifier `C++`: use `parse_msg` from `hyena-cpp` to verify Hyena's reply
-* Verifier `Java`: TBD (use `TDB` from `hyena-api` to verify Hyena's reply)
+* Generator `Java`: use `hyena-api-gentest-0.1-SNAPSHOT.jar` from hyena-app to write a serialized request to a file.
+* Generator `Hyena`: use `gen_test_out` from `hyena-engine/hyena-api` to write serialized replies to a file.
+* Verifier `C++`: use `parse_msg` from `hyena-cpp` to verify Hyena's reply.
+* Verifier `Java`: use `hyena-api-parsemsg-0.1-SNAPSHOT.jar` from `hyena-api` to verify Hyena's reply.
 * Verifier `Hyena`: use `parse_msg` from `hyena-engine/hyena-api` to verify a request (from C++ or Java).
 
 ### Test cases
