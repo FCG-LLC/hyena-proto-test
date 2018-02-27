@@ -1,0 +1,143 @@
+# This file verifies that C++ can parse replies sent by Hyena
+Hyena -> Java
+
+
+## List columns
+# No columns
+-c columns                                   -> ListColumnsReply(columns=[])
+# All data types
+-c columns -n AColumnName -i 1 -t I8Dense    -> ListColumnsReply(columns=[AColumnName/1 I8Dense])
+-c columns -n AColumnName -i 1 -t I16Dense   -> ListColumnsReply(columns=[AColumnName/1 I16Dense])
+-c columns -n AColumnName -i 1 -t I32Dense   -> ListColumnsReply(columns=[AColumnName/1 I32Dense])
+-c columns -n AColumnName -i 1 -t I64Dense   -> ListColumnsReply(columns=[AColumnName/1 I64Dense])
+-c columns -n AColumnName -i 1 -t I128Dense  -> ListColumnsReply(columns=[AColumnName/1 I128Dense])
+-c columns -n AColumnName -i 1 -t U8Dense    -> ListColumnsReply(columns=[AColumnName/1 U8Dense])
+-c columns -n AColumnName -i 1 -t U16Dense   -> ListColumnsReply(columns=[AColumnName/1 U16Dense])
+-c columns -n AColumnName -i 1 -t U32Dense   -> ListColumnsReply(columns=[AColumnName/1 U32Dense])
+-c columns -n AColumnName -i 1 -t U64Dense   -> ListColumnsReply(columns=[AColumnName/1 U64Dense])
+-c columns -n AColumnName -i 1 -t U128Dense  -> ListColumnsReply(columns=[AColumnName/1 U128Dense])
+-c columns -n AColumnName -i 1 -t I8Sparse   -> ListColumnsReply(columns=[AColumnName/1 I8Sparse])
+-c columns -n AColumnName -i 1 -t I16Sparse  -> ListColumnsReply(columns=[AColumnName/1 I16Sparse])
+-c columns -n AColumnName -i 1 -t I32Sparse  -> ListColumnsReply(columns=[AColumnName/1 I32Sparse])
+-c columns -n AColumnName -i 1 -t I64Sparse  -> ListColumnsReply(columns=[AColumnName/1 I64Sparse])
+-c columns -n AColumnName -i 1 -t I128Sparse -> ListColumnsReply(columns=[AColumnName/1 I128Sparse])
+-c columns -n AColumnName -i 1 -t U8Sparse   -> ListColumnsReply(columns=[AColumnName/1 U8Sparse])
+-c columns -n AColumnName -i 1 -t U16Sparse  -> ListColumnsReply(columns=[AColumnName/1 U16Sparse])
+-c columns -n AColumnName -i 1 -t U32Sparse  -> ListColumnsReply(columns=[AColumnName/1 U32Sparse])
+-c columns -n AColumnName -i 1 -t U64Sparse  -> ListColumnsReply(columns=[AColumnName/1 U64Sparse])
+-c columns -n AColumnName -i 1 -t U128Sparse -> ListColumnsReply(columns=[AColumnName/1 U128Sparse])
+# Column name with spaces
+-c columns -n "A Column name" -i 1 -t I8Dense    -> ListColumnsReply(columns=[A Column name/1 I8Dense])
+# UTF-8 column names
+-c columns -n "Zażółć" -i 1 -t I8Dense           -> ListColumnsReply(columns=[Zażółć/1 I8Dense])
+# Multiple columns
+-c columns -n col1 -i 1 -t I8Dense -n col2 -i 2 -t U16Sparse    -> ListColumnsReply(columns=[col1/1 I8Dense, col2/2 U16Sparse])
+-c columns -n col1 -i 10 -t U128Sparse -n col2 -i 1 -t I16Dense -> ListColumnsReply(columns=[col1/10 U128Sparse, col2/1 I16Dense])
+
+
+## Get catalog
+# No columns
+-c catalog -> CatalogReply(columns=[], partitions=#0)
+# All data types
+-c catalog -p 1 -n AColumnName -i 1 -t I8Dense    -> CatalogReply(columns=[AColumnName/1 I8Dense], partitions=#1)
+-c catalog -p 1 -n AColumnName -i 1 -t I16Dense   -> CatalogReply(columns=[AColumnName/1 I16Dense], partitions=#1)
+-c catalog -p 1 -n AColumnName -i 1 -t I32Dense   -> CatalogReply(columns=[AColumnName/1 I32Dense], partitions=#1)
+-c catalog -p 1 -n AColumnName -i 1 -t I64Dense   -> CatalogReply(columns=[AColumnName/1 I64Dense], partitions=#1)
+-c catalog -p 1 -n AColumnName -i 1 -t I128Dense  -> CatalogReply(columns=[AColumnName/1 I128Dense], partitions=#1)
+-c catalog -p 1 -n AColumnName -i 1 -t U8Dense    -> CatalogReply(columns=[AColumnName/1 U8Dense], partitions=#1)
+-c catalog -p 1 -n AColumnName -i 1 -t U16Dense   -> CatalogReply(columns=[AColumnName/1 U16Dense], partitions=#1)
+-c catalog -p 1 -n AColumnName -i 1 -t U32Dense   -> CatalogReply(columns=[AColumnName/1 U32Dense], partitions=#1)
+-c catalog -p 1 -n AColumnName -i 1 -t U64Dense   -> CatalogReply(columns=[AColumnName/1 U64Dense], partitions=#1)
+-c catalog -p 1 -n AColumnName -i 1 -t U128Dense  -> CatalogReply(columns=[AColumnName/1 U128Dense], partitions=#1)
+-c catalog -p 1 -n AColumnName -i 1 -t I8Sparse   -> CatalogReply(columns=[AColumnName/1 I8Sparse], partitions=#1)
+-c catalog -p 1 -n AColumnName -i 1 -t I16Sparse  -> CatalogReply(columns=[AColumnName/1 I16Sparse], partitions=#1)
+-c catalog -p 1 -n AColumnName -i 1 -t I32Sparse  -> CatalogReply(columns=[AColumnName/1 I32Sparse], partitions=#1)
+-c catalog -p 1 -n AColumnName -i 1 -t I64Sparse  -> CatalogReply(columns=[AColumnName/1 I64Sparse], partitions=#1)
+-c catalog -p 1 -n AColumnName -i 1 -t I128Sparse -> CatalogReply(columns=[AColumnName/1 I128Sparse], partitions=#1)
+-c catalog -p 1 -n AColumnName -i 1 -t U8Sparse   -> CatalogReply(columns=[AColumnName/1 U8Sparse], partitions=#1)
+-c catalog -p 1 -n AColumnName -i 1 -t U16Sparse  -> CatalogReply(columns=[AColumnName/1 U16Sparse], partitions=#1)
+-c catalog -p 1 -n AColumnName -i 1 -t U32Sparse  -> CatalogReply(columns=[AColumnName/1 U32Sparse], partitions=#1)
+-c catalog -p 1 -n AColumnName -i 1 -t U64Sparse  -> CatalogReply(columns=[AColumnName/1 U64Sparse], partitions=#1)
+-c catalog -p 1 -n AColumnName -i 1 -t U128Sparse -> CatalogReply(columns=[AColumnName/1 U128Sparse], partitions=#1)
+# Many partitions
+-c catalog -p 100 -n AColumnName -i 1 -t I8Dense    -> CatalogReply(columns=[AColumnName/1 I8Dense], partitions=#100)
+-c catalog -p 1000 -n AColumnName -i 1 -t I8Dense    -> CatalogReply(columns=[AColumnName/1 I8Dense], partitions=#1000)
+# Many columns
+-c catalog -p 128 -n col1 -i 10 -t U128Sparse -n col2 -i 1 -t I16Dense -> CatalogReply(columns=[col1/10 U128Sparse, col2/1 I16Dense], partitions=#128)
+
+
+## Add column
+# Success response
+-c addcolumn -i 120 -> AddColumnReply(id=120)
+# Error response, all error types
+-c addcolumn -e ColumnNameAlreadyExists -w comment -> AddColumnReply(error="ColumnNameAlreadyExists (comment)")
+-c addcolumn -e ColumnIdAlreadyExists   -w 10      -> AddColumnReply(error="ColumnIdAlreadyExists (10)")
+-c addcolumn -e ColumnNameCannotBeEmpty -w comment -> AddColumnReply(error="ColumnNameCannotBeEmpty ()")
+-c addcolumn -e NoData                  -w comment -> AddColumnReply(error="NoData (comment)")
+-c addcolumn -e InconsistentData        -w comment -> AddColumnReply(error="InconsistentData (comment)")
+-c addcolumn -e InvalidScanRequest      -w comment -> AddColumnReply(error="InvalidScanRequest (comment)")
+-c addcolumn -e CatalogError            -w comment -> AddColumnReply(error="CatalogError (comment)")
+-c addcolumn -e ScanError               -w comment -> AddColumnReply(error="ScanError (comment)")
+-c addcolumn -e Unknown                 -w comment -> AddColumnReply(error="Unknown (comment)")
+
+
+## Insert
+# Success response
+-c insert -r 120 -> InsertReply(num=120)
+# Error response, all error types
+-c insert -e ColumnNameAlreadyExists -w comment -> InsertReply(error="ColumnNameAlreadyExists (comment)")
+-c insert -e ColumnIdAlreadyExists   -w 10      -> InsertReply(error="ColumnIdAlreadyExists (10)")
+-c insert -e ColumnNameCannotBeEmpty -w comment -> InsertReply(error="ColumnNameCannotBeEmpty ()")
+-c insert -e NoData                  -w comment -> InsertReply(error="NoData (comment)")
+-c insert -e InconsistentData        -w comment -> InsertReply(error="InconsistentData (comment)")
+-c insert -e InvalidScanRequest      -w comment -> InsertReply(error="InvalidScanRequest (comment)")
+-c insert -e CatalogError            -w comment -> InsertReply(error="CatalogError (comment)")
+-c insert -e ScanError               -w comment -> InsertReply(error="ScanError (comment)")
+-c insert -e Unknown                 -w comment -> InsertReply(error="Unknown (comment)")
+
+
+## Scan
+# Error response, all error types
+-c scan -e ColumnNameAlreadyExists -w comment -> ScanReply(error="ColumnNameAlreadyExists (comment)")
+-c scan -e ColumnIdAlreadyExists   -w 10      -> ScanReply(error="ColumnIdAlreadyExists (10)")
+-c scan -e ColumnNameCannotBeEmpty -w comment -> ScanReply(error="ColumnNameCannotBeEmpty ()")
+-c scan -e NoData                  -w comment -> ScanReply(error="NoData (comment)")
+-c scan -e InconsistentData        -w comment -> ScanReply(error="InconsistentData (comment)")
+-c scan -e InvalidScanRequest      -w comment -> ScanReply(error="InvalidScanRequest (comment)")
+-c scan -e CatalogError            -w comment -> ScanReply(error="CatalogError (comment)")
+-c scan -e ScanError               -w comment -> ScanReply(error="ScanError (comment)")
+-c scan -e Unknown                 -w comment -> ScanReply(error="Unknown (comment)")
+# No data
+-c scan -i 0 -t U64Dense -d 0   -> ScanReply(data=[{id=0, type=U64Dense, block=no-data}])
+-c scan -i 0 -t U64Dense -d 0 -i 1 -t I8Sparse -d 0 -i 256 -t U128Sparse -d 0  -> ScanReply(data=[{id=0, type=U64Dense, block=no-data}, {id=1, type=I8Sparse, block=no-data}, {id=256, type=U128Sparse, block=no-data}])
+# All column types
+-c scan -i 0 -t I8Dense -d 1      -> ScanReply(data=[{id=0, type=I8Dense, block=#1}])
+-c scan -i 0 -t I16Dense -d 1     -> ScanReply(data=[{id=0, type=I16Dense, block=#1}])
+-c scan -i 0 -t I32Dense -d 1     -> ScanReply(data=[{id=0, type=I32Dense, block=#1}])
+-c scan -i 0 -t I64Dense -d 1     -> ScanReply(data=[{id=0, type=I64Dense, block=#1}])
+# Not implemented yet
+# -c scan -i 0 -t I128Dense -d 1  -> ScanReply(data=[{id=0, type=I128Dense, block=#1}])
+-c scan -i 0 -t U8Dense -d 1      -> ScanReply(data=[{id=0, type=U8Dense, block=#1}])
+-c scan -i 0 -t U16Dense -d 1     -> ScanReply(data=[{id=0, type=U16Dense, block=#1}])
+-c scan -i 0 -t U32Dense -d 1     -> ScanReply(data=[{id=0, type=U32Dense, block=#1}])
+-c scan -i 0 -t U64Dense -d 1     -> ScanReply(data=[{id=0, type=U64Dense, block=#1}])
+# Not implemented yet
+# -c scan -i 0 -t U128Dense -d 1  -> ScanReply(data=[{id=0, type=U128Dense, block=#1}])
+-c scan -i 0 -t I8Sparse -d 1     -> ScanReply(data=[{id=0, type=I8Sparse, block=#1}])
+-c scan -i 0 -t I16Sparse -d 1    -> ScanReply(data=[{id=0, type=I16Sparse, block=#1}])
+-c scan -i 0 -t I32Sparse -d 1    -> ScanReply(data=[{id=0, type=I32Sparse, block=#1}])
+-c scan -i 0 -t I64Sparse -d 1    -> ScanReply(data=[{id=0, type=I64Sparse, block=#1}])
+# Not implemented yet
+# -c scan -i 0 -t I128Sparse -d 1  -> ScanReply(data=[{id=0, type=I128Sparse, block=#1}])
+-c scan -i 0 -t U8Sparse -d 1     -> ScanReply(data=[{id=0, type=U8Sparse, block=#1}])
+-c scan -i 0 -t U16Sparse -d 1    -> ScanReply(data=[{id=0, type=U16Sparse, block=#1}])
+-c scan -i 0 -t U32Sparse -d 1    -> ScanReply(data=[{id=0, type=U32Sparse, block=#1}])
+-c scan -i 0 -t U64Sparse -d 1    -> ScanReply(data=[{id=0, type=U64Sparse, block=#1}])
+# Not implemented yet
+# -c scan -i 0 -t U128Sparse -d 1  -> ScanReply(data=[{id=0, type=U128Sparse, block=#1}])
+# Different amount of data, single column
+-c scan -i 0 -t U8Sparse -d 5     -> ScanReply(data=[{id=0, type=U8Sparse, block=#5}])
+-c scan -i 0 -t I64Dense -d 50    -> ScanReply(data=[{id=0, type=I64Dense, block=#50}])
+-c scan -i 0 -t U8Sparse -d 5000  -> ScanReply(data=[{id=0, type=U8Sparse, block=#5000}])
+# Different amount of data, multiple columns
+-c scan -i 0 -t U64Dense -d 10 -i 1 -t I8Sparse -d 100 -i 256 -t U64Sparse -d 1000  -> ScanReply(data=[{id=0, type=U64Dense, block=#10}, {id=1, type=I8Sparse, block=#100}, {id=256, type=U64Sparse, block=#1000}])

@@ -14,7 +14,8 @@ build-hyena:
 
 build-java:
 	@cd hyena-api; \
-		./gradlew gentestJar
+		./gradlew gentestJar; \
+		./gradlew parsemsgJar
 
 .PHONY: clean
 clean: clean-cpp clean-hyena

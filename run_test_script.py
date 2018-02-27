@@ -9,8 +9,9 @@ gens = {
 }
 
 vers = {
-    'HYENA': 'hyena-edge/target/debug/parse_msg',
-    'C++': 'hyena-cpp/build/bin/parse_msg'
+    'HYENA': ['hyena-edge/target/debug/parse_msg'],
+    'C++': ['hyena-cpp/build/bin/parse_msg'],
+    'JAVA': ['java', '-jar', 'hyena-api/build/libs/hyena-api-parsemsg-0.1-SNAPSHOT.jar'],
 }
 
 GREEN = '\033[92m'
@@ -78,7 +79,7 @@ def run_script(filename):
         output = output.strip()
         try:
             call([*generator, "-o", "output.bin"] + input, stdout=DEVNULL)
-            ver = check_output([verifier, "output.bin"], universal_newlines=True).strip()
+            ver = check_output([*verifier, "output.bin"], universal_newlines=True).strip()
         except CalledProcessError as e:
             print(FAIL + ": input " + raw_input)
             print(FAIL + ": " + str(e))
