@@ -10,9 +10,12 @@ Type `make` to run all tests. It will compile all dependencies and than run test
 each of the tests, and then a summary not unlike the following:
 
 ```
-Run 136 tests, 136 passed, 0 failed
+Run 336 tests, 336 passed, 0 failed
+    Hyena -> C++: PASS 100 tests, 100 passed,   0 failed
+   Hyena -> Java: PASS 100 tests, 100 passed,   0 failed
     C++ -> Hyena: PASS  68 tests,  68 passed,   0 failed
    Java -> Hyena: PASS  68 tests,  68 passed,   0 failed
+
 ```
 
 ## Script format
@@ -123,11 +126,13 @@ OPTIONS:
 
 ```
 
-## Hyena verifier
+## Verifiers
 
-Hyena verifier `parse_msg` parses a serialized Hyena request and outputs the result. It takes a single parameter, the 
+Hyena, C++, Java verifiers `parse_msg` parse a serialized Hyena request and output the result. It takes a single parameter, the 
 file with serialized request.
 
 For example, when using output from the example of C++ generator (see above), `parse_msg lala.bin` would output the folowing:
 `Insert {source: 321, timestamps: #10, columns: [3: I8Dense #10 ]}`. It should be read as: the file contains an Insert request
 for source 321, containing 10 timestamps and a single column with id 3, type I8Dense and 10 data items.
+
+Java verifier is run with `java -jar hyena-api/build/libs/hyena-api-parsemsg-0.1-SNAPSHOT.jar <filename>`.
