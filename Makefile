@@ -8,7 +8,7 @@ build-cpp:
 		make -s
 
 build-hyena:
-	@cd hyena-edge/hyena-api; \
+	@cd hyena/hyena-api; \
 		cargo build --features=parse_msg --bin parse_msg; \
 		cargo build --features=gen_test_out --bin gen_test_out
 

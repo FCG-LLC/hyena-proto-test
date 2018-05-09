@@ -2,6 +2,10 @@
 Hyena -> C++
 
 
+## Control messages
+-c keepalive -> Keepalive
+
+
 ## List columns
 # No columns
 -c columns                                   -> ListColumnReply {columns=[]}
