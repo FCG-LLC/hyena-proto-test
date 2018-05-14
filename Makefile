@@ -2,6 +2,7 @@ all: update-depends build-hyena build-cpp build-java
 	@python3 run_test_script.py script
 
 update-depends:
+	@git submodule init
 	@git submodule update
 	@cd hyena-cpp && git pull
 	@cd hyena-api && git pull
