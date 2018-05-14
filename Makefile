@@ -4,9 +4,9 @@ all: update-depends build-hyena build-cpp build-java
 update-depends:
 	@git submodule init
 	@git submodule update
-	@cd hyena-cpp && git checkout master && git pull
-	@cd hyena-api && git checkout master && git pull
-	@cd hyena     && git checkout master && git pull
+	@cd hyena-cpp && git pull
+	@cd hyena-api && git pull
+	@cd hyena     && git pull
 
 build-cpp:
 	@mkdir -p hyena-cpp/build && \
