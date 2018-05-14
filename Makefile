@@ -1,5 +1,11 @@
-all: build-hyena build-cpp build-java
+all: update-depends build-hyena build-cpp build-java
 	@python3 run_test_script.py script
+
+update-depends:
+	@git submodule update
+	@cd hyena-cpp && git pull
+	@cd hyena-api && git pull
+	@cd hyena && git pull
 
 build-cpp:
 	@mkdir -p hyena-cpp/build && \
@@ -18,12 +24,16 @@ build-java:
 		./gradlew parsemsgJar
 
 .PHONY: clean
-clean: clean-cpp clean-hyena
+clean: clean-cpp clean-hyena clean-java
 	@rm -f output.bin
 
 clean-cpp:
 	@rm -rf hyena-cpp/build
 
 clean-hyena:
-	@cd hyena-edge/hyena-api; \
+	@cd hyena/hyena-api; \
 		cargo clean
+
+clean-java:
+	@cd hyena-api; \
+		./gradlew clean
