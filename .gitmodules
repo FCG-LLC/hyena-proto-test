@@ -4,9 +4,9 @@
 	branch = master
 [submodule "hyena-cpp"]
 	path = hyena-cpp
-	url = git@github.com:FCG-LLC/hyena-cpp.git
+	url = git@gitlab.cs.int:hyena/hyena-cpp.git
 	branch = master
-[submodule "hyena-api"]
-	path = hyena-api
-	url = git@github.com:FCG-LLC/hyena-api.git
+[submodule "hyena-java"]
+	path = hyena-java
+	url = git@gitlab.cs.int:hyena/hyena-java.git
 	branch = master
