@@ -5,7 +5,7 @@ update-depends:
 	@git submodule init
 	@git submodule update
 	@cd hyena-cpp && git checkout master && git pull
-	@cd hyena-api && git checkout master && git pull
+	@cd hyena-java && git checkout master && git pull
 	@cd hyena     && git checkout master && git pull
 
 build-cpp:
@@ -20,7 +20,7 @@ build-hyena:
 		cargo build --features=gen_test_out --bin gen_test_out
 
 build-java:
-	@cd hyena-api; \
+	@cd hyena-java; \
 		./gradlew gentestJar; \
 		./gradlew parsemsgJar
 
@@ -32,9 +32,9 @@ clean-cpp:
 	@rm -rf hyena-cpp/build
 
 clean-hyena:
-	@cd hyena/hyena-api; \
+	@cd hyena/hyena-java; \
 		cargo clean
 
 clean-java:
-	@cd hyena-api; \
+	@cd hyena-java; \
 		./gradlew clean
