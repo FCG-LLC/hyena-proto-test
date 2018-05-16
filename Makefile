@@ -11,7 +11,7 @@ update-depends:
 build-cpp:
 	@mkdir -p hyena-cpp/build && \
 		cd hyena-cpp/build && \
-		cmake .. && \
+		cmake -DHYENA_DEBUG=OFF .. && \
 		make -s
 
 build-hyena:
@@ -32,7 +32,7 @@ clean-cpp:
 	@rm -rf hyena-cpp/build
 
 clean-hyena:
-	@cd hyena/hyena-java; \
+	@cd hyena/hyena-api; \
 		cargo clean
 
 clean-java:
