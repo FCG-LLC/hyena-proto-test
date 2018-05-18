@@ -2,7 +2,7 @@ HYENA_COMMIT ?= master
 HYENA_CPP_COMMIT ?= master
 HYENA_JAVA_COMMIT ?= master
 
-all: update-depends build-hyena build-cpp build-java
+all: show-variables update-depends build-hyena build-cpp build-java
 	@python3 run_test_script.py script
 
 update-depends:
@@ -31,10 +31,12 @@ build-java:
 .PHONY: show-variables clean
 
 show-variables:
+	@echo -----
 	@echo Using following commits/branches for tests
 	@echo hyena:      ${HYENA_COMMIT}
 	@echo hyena-cpp:  ${HYENA_CPP_COMMIT}
 	@echo hyena-java: ${HYENA_JAVA_COMMIT}
+	@echo -----
 
 clean: clean-cpp clean-hyena clean-java
 	@rm -f output.bin
