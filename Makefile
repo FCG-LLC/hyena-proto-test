@@ -8,9 +8,9 @@ all: show-variables update-depends build-hyena build-cpp build-java
 update-depends:
 	@git submodule init
 	@git submodule update
-	@cd hyena-cpp  && git checkout ${HYENA_CPP_COMMIT}  && git pull
-	@cd hyena-java && git checkout ${HYENA_JAVA_COMMIT} && git pull
-	@cd hyena      && git checkout ${HYENA_COMMIT}      && git pull
+	@cd hyena-cpp  && git checkout master && git pull -a && git checkout ${HYENA_CPP_COMMIT}  
+	@cd hyena-java && git checkout master && git pull -a && git checkout ${HYENA_JAVA_COMMIT} 
+	@cd hyena      && git checkout master && git pull -a && git checkout ${HYENA_COMMIT}      
 
 build-cpp:
 	@mkdir -p hyena-cpp/build && \
