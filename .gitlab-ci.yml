@@ -1,0 +1,5 @@
+build-docker-image:
+  script: 
+  - "docker build -t hyena-proto-test ."
+  only:
+  - master
