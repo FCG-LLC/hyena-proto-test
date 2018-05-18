@@ -1,12 +1,16 @@
+HYENA_COMMIT ?= master
+HYENA_CPP_COMMIT ?= master
+HYENA_JAVA_COMMIT ?= master
+
 all: update-depends build-hyena build-cpp build-java
 	@python3 run_test_script.py script
 
 update-depends:
 	@git submodule init
 	@git submodule update
-	@cd hyena-cpp && git checkout master && git pull
-	@cd hyena-java && git checkout master && git pull
-	@cd hyena     && git checkout master && git pull
+	@cd hyena-cpp  && git checkout ${HYENA_CPP_COMMIT}  && git pull
+	@cd hyena-java && git checkout ${HYENA_JAVA_COMMIT} && git pull
+	@cd hyena      && git checkout ${HYENA_COMMIT}      && git pull
 
 build-cpp:
 	@mkdir -p hyena-cpp/build && \
@@ -24,7 +28,14 @@ build-java:
 		./gradlew gentestJar; \
 		./gradlew parsemsgJar
 
-.PHONY: clean
+.PHONY: show-variables clean
+
+show-variables:
+	@echo Using following commits/branches for tests
+	@echo hyena:      ${HYENA_COMMIT}
+	@echo hyena-cpp:  ${HYENA_CPP_COMMIT}
+	@echo hyena-java: ${HYENA_JAVA_COMMIT}
+
 clean: clean-cpp clean-hyena clean-java
 	@rm -f output.bin
 
