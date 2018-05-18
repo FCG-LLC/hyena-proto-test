@@ -2,8 +2,8 @@ build-docker-image:
   script: 
   - sudo docker login -u "$PORTUS_USERNAME" -p "$PORTUS_PASSWORD" portus.cs.int:5000
   - sudo docker build -t hyena-proto-test .
-  - sudo docker tag hyena-proto-test:latest portus.cs.int:5000/test/hyena-proto-test
-  - sudo docker push portus.cs.int:5000/test/hyena-proto-test
+  - sudo docker tag hyena-proto-test:latest portus.cs.int:5000/dev/hyena-proto-test
+  - sudo docker push portus.cs.int:5000/dev/hyena-proto-test
   only:
   - master
   tags:
