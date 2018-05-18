@@ -3,3 +3,5 @@ build-docker-image:
   - "docker build -t hyena-proto-test ."
   only:
   - master
+  tags:
+  - docker
