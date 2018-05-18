@@ -109,6 +109,8 @@ def run_scripts_dir(dir):
         print("{0:>16}: {4} {1:3d} tests, {2:3d} passed, {3:3d} failed"
               .format(stat.name, stat.tests, stat.passed, stat.failed,
                       PASS if stat.all_passed() else FAIL))
+    if test_results.failed() > 0:
+        sys.exit(1)
 
 def dispatch(dir_or_file):
     if not os.path.exists(dir_or_file):
@@ -120,6 +122,8 @@ def dispatch(dir_or_file):
     else:
         stats = run_script(dir_or_file)
         print("\nRun {0} tests, {1} passed, {2} failed".format(stats.tests, stats.passed, stats.failed))
+        if stats.failed > 0:
+            sys.exit(1)
 
 if __name__ == "__main__":
     import sys
