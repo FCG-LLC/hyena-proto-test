@@ -33,8 +33,8 @@ Java -> Hyena
 -c addcolumn -n ColumnName -t U32Sparse                -> Request: 0, AddColumn {column_name: "ColumnName", column_type: U32Sparse}
 -c addcolumn -n ColumnName -t U64Sparse                -> Request: 0, AddColumn {column_name: "ColumnName", column_type: U64Sparse}
 -c addcolumn -n ColumnName -t U128Sparse               -> Request: 0, AddColumn {column_name: "ColumnName", column_type: U128Sparse}
+-c addcolumn -n ColumnName -t StringDense              -> Request: 0, AddColumn {column_name: "ColumnName", column_type: StringDense}
 # String columns not implemented yet in Hyena
-#-c addcolumn -n ColumnName -t StringDense              -> Request: 0, AddColumn {column_name: "ColumnName", column_type: StringDense}
 #-c addcolumn -n ColumnName -t StringSparse             -> Request: 0, AddColumn {column_name: "ColumnName", column_type: StringSparse}
 -c addcolumn -n "A column name with spaces" -t I8Dense -> Request: 0, AddColumn {column_name: "A column name with spaces", column_type: I8Dense}
 -c addcolumn -n ZażółćGęśląJaźń -t I8Dense             -> Request: 0, AddColumn {column_name: "ZażółćGęśląJaźń", column_type: I8Dense}
@@ -61,6 +61,7 @@ Java -> Hyena
 -c insert -s 321 -r 10 -i 3 -t U32Sparse                -> Request: 0, Insert {source: 321, timestamps: #10, columns: [3: U32Sparse #10 ]}
 -c insert -s 321 -r 10 -i 3 -t U64Sparse                -> Request: 0, Insert {source: 321, timestamps: #10, columns: [3: U64Sparse #10 ]}
 #-c insert -s 321 -r 10 -i 3 -t U128Sparse               -> Request: 0, Insert {source: 321, timestamps: #10, columns: [3: U128Sparse #10 ]}
+-c insert -s 321 -r 10 -i 3 -t StringDense              -> Request: 0, Insert {source: 321, timestamps: #10, columns: [3: StringDense #10 ]}
 # Insert different number of rows
 -c insert -s 321 -r 1 -i 3 -t I8Dense                   -> Request: 0, Insert {source: 321, timestamps: #1, columns: [3: I8Dense #1 ]}
 -c insert -s 321 -r 5 -i 3 -t I8Dense                   -> Request: 0, Insert {source: 321, timestamps: #5, columns: [3: I8Dense #5 ]}
@@ -73,33 +74,44 @@ Java -> Hyena
 # Insert many columns of different types
 -c insert -s 321 -r 10 -i 3 -t I8Dense -i 4 -t I8Sparse -i 5 -t U16Sparse  -> Request: 0, Insert {source: 321, timestamps: #10, columns: [3: I8Dense #10, 4: I8Sparse #10, 5: U16Sparse #10 ]}
 
+
 ## Scan
 # No filter
 -c scan -m 12345 -x 98765 -i 1                              -> Request: 0, Scan {min_ts: 12345, max_ts: 98765, partition_ids: #0, projection: [1], filters: [[]]}
+
 # Multiple columns in projection
 -c scan -m 12345 -x 98765 -i 1 -i 2 -i 23 -i 34             -> Request: 0, Scan {min_ts: 12345, max_ts: 98765, partition_ids: #0, projection: [1, 2, 23, 34], filters: [[]]}
+
 # Partition encoded
 -c scan -m 12345 -x 98765 -i 3 -u                           -> Request: 0, Scan {min_ts: 12345, max_ts: 98765, partition_ids: #1, projection: [3], filters: [[]]}
 -c scan -m 12345 -x 98765 -i 3 -u -u                        -> Request: 0, Scan {min_ts: 12345, max_ts: 98765, partition_ids: #2, projection: [3], filters: [[]]}
 -c scan -m 12345 -x 98765 -i 3 -u -u -u                     -> Request: 0, Scan {min_ts: 12345, max_ts: 98765, partition_ids: #3, projection: [3], filters: [[]]}
+
 # Single filter
--c scan -m 12345 -x 98765 -i 3 -i 4 -l 2 -f I8 -p Lt -v -10   -> Request: 0, Scan {min_ts: 12345, max_ts: 98765, partition_ids: #0, projection: [3, 4], filters: [[ScanFilter { column: 2, op: Lt, typed_val: I8(-10), str_val: "" }]]}
--c scan -m 12345 -x 98765 -i 3 -i 4 -l 2 -f I16 -p Lt -v -10  -> Request: 0, Scan {min_ts: 12345, max_ts: 98765, partition_ids: #0, projection: [3, 4], filters: [[ScanFilter { column: 2, op: Lt, typed_val: I16(-10), str_val: "" }]]}
--c scan -m 12345 -x 98765 -i 3 -i 4 -l 2 -f I32 -p Lt -v -10  -> Request: 0, Scan {min_ts: 12345, max_ts: 98765, partition_ids: #0, projection: [3, 4], filters: [[ScanFilter { column: 2, op: Lt, typed_val: I32(-10), str_val: "" }]]}
--c scan -m 12345 -x 98765 -i 3 -i 4 -l 2 -f I64 -p Lt -v -10  -> Request: 0, Scan {min_ts: 12345, max_ts: 98765, partition_ids: #0, projection: [3, 4], filters: [[ScanFilter { column: 2, op: Lt, typed_val: I64(-10), str_val: "" }]]}
+-c scan -m 12345 -x 98765 -i 3 -i 4 -l 2 -f I8 -p Lt -v -10   -> Request: 0, Scan {min_ts: 12345, max_ts: 98765, partition_ids: #0, projection: [3, 4], filters: [[ScanFilter { column: 2, op: Lt, typed_val: I8(-10) }]]}
+-c scan -m 12345 -x 98765 -i 3 -i 4 -l 2 -f I16 -p Lt -v -10  -> Request: 0, Scan {min_ts: 12345, max_ts: 98765, partition_ids: #0, projection: [3, 4], filters: [[ScanFilter { column: 2, op: Lt, typed_val: I16(-10) }]]}
+-c scan -m 12345 -x 98765 -i 3 -i 4 -l 2 -f I32 -p Lt -v -10  -> Request: 0, Scan {min_ts: 12345, max_ts: 98765, partition_ids: #0, projection: [3, 4], filters: [[ScanFilter { column: 2, op: Lt, typed_val: I32(-10) }]]}
+-c scan -m 12345 -x 98765 -i 3 -i 4 -l 2 -f I64 -p Lt -v -10  -> Request: 0, Scan {min_ts: 12345, max_ts: 98765, partition_ids: #0, projection: [3, 4], filters: [[ScanFilter { column: 2, op: Lt, typed_val: I64(-10) }]]}
 # Not implemented in C++ lib yet
-# -c scan -m 12345 -x 98765 -i 3 -i 4 -l 2 -f I128 -p Lt -v -10  -> Request: 0, Scan {min_ts: 12345, max_ts: 98765, partition_ids: #0, projection: [3, 4], filters: [[ScanFilter { column: 2, op: Lt, typed_val: I64(-10), str_val: "" }]]}
--c scan -m 12345 -x 98765 -i 3 -i 4 -l 2 -f U8 -p Lt -v 10    -> Request: 0, Scan {min_ts: 12345, max_ts: 98765, partition_ids: #0, projection: [3, 4], filters: [[ScanFilter { column: 2, op: Lt, typed_val: U8(10), str_val: "" }]]}
--c scan -m 12345 -x 98765 -i 3 -i 4 -l 2 -f U16 -p Lt -v 10   -> Request: 0, Scan {min_ts: 12345, max_ts: 98765, partition_ids: #0, projection: [3, 4], filters: [[ScanFilter { column: 2, op: Lt, typed_val: U16(10), str_val: "" }]]}
--c scan -m 12345 -x 98765 -i 3 -i 4 -l 2 -f U32 -p Lt -v 10   -> Request: 0, Scan {min_ts: 12345, max_ts: 98765, partition_ids: #0, projection: [3, 4], filters: [[ScanFilter { column: 2, op: Lt, typed_val: U32(10), str_val: "" }]]}
--c scan -m 12345 -x 98765 -i 3 -i 4 -l 2 -f U64 -p Lt -v 10   -> Request: 0, Scan {min_ts: 12345, max_ts: 98765, partition_ids: #0, projection: [3, 4], filters: [[ScanFilter { column: 2, op: Lt, typed_val: U64(10), str_val: "" }]]}
+# -c scan -m 12345 -x 98765 -i 3 -i 4 -l 2 -f I128 -p Lt -v -10  -> Request: 0, Scan {min_ts: 12345, max_ts: 98765, partition_ids: #0, projection: [3, 4], filters: [[ScanFilter { column: 2, op: Lt, typed_val: I64(-10) }]]}
+-c scan -m 12345 -x 98765 -i 3 -i 4 -l 2 -f U8 -p Lt -v 10    -> Request: 0, Scan {min_ts: 12345, max_ts: 98765, partition_ids: #0, projection: [3, 4], filters: [[ScanFilter { column: 2, op: Lt, typed_val: U8(10) }]]}
+-c scan -m 12345 -x 98765 -i 3 -i 4 -l 2 -f U16 -p Lt -v 10   -> Request: 0, Scan {min_ts: 12345, max_ts: 98765, partition_ids: #0, projection: [3, 4], filters: [[ScanFilter { column: 2, op: Lt, typed_val: U16(10) }]]}
+-c scan -m 12345 -x 98765 -i 3 -i 4 -l 2 -f U32 -p Lt -v 10   -> Request: 0, Scan {min_ts: 12345, max_ts: 98765, partition_ids: #0, projection: [3, 4], filters: [[ScanFilter { column: 2, op: Lt, typed_val: U32(10) }]]}
+-c scan -m 12345 -x 98765 -i 3 -i 4 -l 2 -f U64 -p Lt -v 10   -> Request: 0, Scan {min_ts: 12345, max_ts: 98765, partition_ids: #0, projection: [3, 4], filters: [[ScanFilter { column: 2, op: Lt, typed_val: U64(10) }]]}
 # Not implemented in C++ lib yet
-# -c scan -m 12345 -x 98765 -i 3 -i 4 -l 2 -f U128 -p Lt -v 10   -> Request: 0, Scan {min_ts: 12345, max_ts: 98765, partition_ids: #0, projection: [3, 4], filters: [[ScanFilter { column: 2, op: Lt, typed_val: U64(10), str_val: "" }]]}
--c scan -m 12345 -x 98765 -i 3 -i 4 -l 2 -f U8 -p LtEq -v 10  -> Request: 0, Scan {min_ts: 12345, max_ts: 98765, partition_ids: #0, projection: [3, 4], filters: [[ScanFilter { column: 2, op: LtEq, typed_val: U8(10), str_val: "" }]]}
--c scan -m 12345 -x 98765 -i 3 -i 4 -l 2 -f U8 -p Eq -v 10    -> Request: 0, Scan {min_ts: 12345, max_ts: 98765, partition_ids: #0, projection: [3, 4], filters: [[ScanFilter { column: 2, op: Eq, typed_val: U8(10), str_val: "" }]]}
--c scan -m 12345 -x 98765 -i 3 -i 4 -l 2 -f U8 -p GtEq -v 10  -> Request: 0, Scan {min_ts: 12345, max_ts: 98765, partition_ids: #0, projection: [3, 4], filters: [[ScanFilter { column: 2, op: GtEq, typed_val: U8(10), str_val: "" }]]}
--c scan -m 12345 -x 98765 -i 3 -i 4 -l 2 -f U8 -p Gt -v 10    -> Request: 0, Scan {min_ts: 12345, max_ts: 98765, partition_ids: #0, projection: [3, 4], filters: [[ScanFilter { column: 2, op: Gt, typed_val: U8(10), str_val: "" }]]}
--c scan -m 12345 -x 98765 -i 3 -i 4 -l 2 -f U8 -p NotEq -v 10 -> Request: 0, Scan {min_ts: 12345, max_ts: 98765, partition_ids: #0, projection: [3, 4], filters: [[ScanFilter { column: 2, op: NotEq, typed_val: U8(10), str_val: "" }]]}
+# -c scan -m 12345 -x 98765 -i 3 -i 4 -l 2 -f U128 -p Lt -v 10   -> Request: 0, Scan {min_ts: 12345, max_ts: 98765, partition_ids: #0, projection: [3, 4], filters: [[ScanFilter { column: 2, op: Lt, typed_val: U64(10) }]]}
+-c scan -m 12345 -x 98765 -i 3 -i 4 -l 2 -f U8 -p LtEq -v 10  -> Request: 0, Scan {min_ts: 12345, max_ts: 98765, partition_ids: #0, projection: [3, 4], filters: [[ScanFilter { column: 2, op: LtEq, typed_val: U8(10) }]]}
+-c scan -m 12345 -x 98765 -i 3 -i 4 -l 2 -f U8 -p Eq -v 10    -> Request: 0, Scan {min_ts: 12345, max_ts: 98765, partition_ids: #0, projection: [3, 4], filters: [[ScanFilter { column: 2, op: Eq, typed_val: U8(10) }]]}
+-c scan -m 12345 -x 98765 -i 3 -i 4 -l 2 -f U8 -p GtEq -v 10  -> Request: 0, Scan {min_ts: 12345, max_ts: 98765, partition_ids: #0, projection: [3, 4], filters: [[ScanFilter { column: 2, op: GtEq, typed_val: U8(10) }]]}
+-c scan -m 12345 -x 98765 -i 3 -i 4 -l 2 -f U8 -p Gt -v 10    -> Request: 0, Scan {min_ts: 12345, max_ts: 98765, partition_ids: #0, projection: [3, 4], filters: [[ScanFilter { column: 2, op: Gt, typed_val: U8(10) }]]}
+-c scan -m 12345 -x 98765 -i 3 -i 4 -l 2 -f U8 -p NotEq -v 10 -> Request: 0, Scan {min_ts: 12345, max_ts: 98765, partition_ids: #0, projection: [3, 4], filters: [[ScanFilter { column: 2, op: NotEq, typed_val: U8(10) }]]}
+
+# String filters
+-c scan -m 12345 -x 98765 -i 3 -i 4 -l 2 -f String -p StartsWith -v "test" -> Request: 0, Scan {min_ts: 12345, max_ts: 98765, partition_ids: #0, projection: [3, 4], filters: [[ScanFilter { column: 2, op: StartsWith, typed_val: String("test") }]]}
+-c scan -m 12345 -x 98765 -i 3 -i 4 -l 2 -f String -p EndsWith -v "test" -> Request: 0, Scan {min_ts: 12345, max_ts: 98765, partition_ids: #0, projection: [3, 4], filters: [[ScanFilter { column: 2, op: EndsWith, typed_val: String("test") }]]}
+-c scan -m 12345 -x 98765 -i 3 -i 4 -l 2 -f String -p Contains -v "test" -> Request: 0, Scan {min_ts: 12345, max_ts: 98765, partition_ids: #0, projection: [3, 4], filters: [[ScanFilter { column: 2, op: Contains, typed_val: String("test") }]]}
+-c scan -m 12345 -x 98765 -i 3 -i 4 -l 2 -f String -p Matches -v "test" -> Request: 0, Scan {min_ts: 12345, max_ts: 98765, partition_ids: #0, projection: [3, 4], filters: [[ScanFilter { column: 2, op: Matches, typed_val: String("test") }]]}
+
 # Multiple filters
--c scan -m 12345 -x 98765 -i 3 -i 4 -u   -l 2 -f I8 -p Lt -v 10   -l 2 -f I8 -p Gt -v 0    -> Request: 0, Scan {min_ts: 12345, max_ts: 98765, partition_ids: #1, projection: [3, 4], filters: [[ScanFilter { column: 2, op: Lt, typed_val: I8(10), str_val: "" }, ScanFilter { column: 2, op: Gt, typed_val: I8(0), str_val: "" }]]}
--c scan -m 12345 -x 98765 -i 3 -i 4 -u   -l 2 -f I8 -p Lt -v 10   -l 3 -f U32 -p GtEq -v 0 -> Request: 0, Scan {min_ts: 12345, max_ts: 98765, partition_ids: #1, projection: [3, 4], filters: [[ScanFilter { column: 2, op: Lt, typed_val: I8(10), str_val: "" }, ScanFilter { column: 3, op: GtEq, typed_val: U32(0), str_val: "" }]]}
+-c scan -m 12345 -x 98765 -i 3 -i 4 -u   -l 2 -f I8 -p Lt -v 10   -l 2 -f I8 -p Gt -v 0    -> Request: 0, Scan {min_ts: 12345, max_ts: 98765, partition_ids: #1, projection: [3, 4], filters: [[ScanFilter { column: 2, op: Lt, typed_val: I8(10) }, ScanFilter { column: 2, op: Gt, typed_val: I8(0) }]]}
+-c scan -m 12345 -x 98765 -i 3 -i 4 -u   -l 2 -f I8 -p Lt -v 10   -l 3 -f U32 -p GtEq -v 0 -> Request: 0, Scan {min_ts: 12345, max_ts: 98765, partition_ids: #1, projection: [3, 4], filters: [[ScanFilter { column: 2, op: Lt, typed_val: I8(10) }, ScanFilter { column: 3, op: GtEq, typed_val: U32(0) }]]}

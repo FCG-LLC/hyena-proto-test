@@ -10,26 +10,27 @@ Hyena -> C++
 # No columns
 -c columns                                   -> ListColumnReply {columns=[]}
 # All data types
--c columns -n AColumnName -i 1 -t I8Dense    -> ListColumnReply {columns=[Column(1, "AColumnName", I8Dense), ]}
--c columns -n AColumnName -i 1 -t I16Dense   -> ListColumnReply {columns=[Column(1, "AColumnName", I16Dense), ]}
--c columns -n AColumnName -i 1 -t I32Dense   -> ListColumnReply {columns=[Column(1, "AColumnName", I32Dense), ]}
--c columns -n AColumnName -i 1 -t I64Dense   -> ListColumnReply {columns=[Column(1, "AColumnName", I64Dense), ]}
--c columns -n AColumnName -i 1 -t I128Dense  -> ListColumnReply {columns=[Column(1, "AColumnName", I128Dense), ]}
--c columns -n AColumnName -i 1 -t U8Dense    -> ListColumnReply {columns=[Column(1, "AColumnName", U8Dense), ]}
--c columns -n AColumnName -i 1 -t U16Dense   -> ListColumnReply {columns=[Column(1, "AColumnName", U16Dense), ]}
--c columns -n AColumnName -i 1 -t U32Dense   -> ListColumnReply {columns=[Column(1, "AColumnName", U32Dense), ]}
--c columns -n AColumnName -i 1 -t U64Dense   -> ListColumnReply {columns=[Column(1, "AColumnName", U64Dense), ]}
--c columns -n AColumnName -i 1 -t U128Dense  -> ListColumnReply {columns=[Column(1, "AColumnName", U128Dense), ]}
--c columns -n AColumnName -i 1 -t I8Sparse   -> ListColumnReply {columns=[Column(1, "AColumnName", I8Sparse), ]}
--c columns -n AColumnName -i 1 -t I16Sparse  -> ListColumnReply {columns=[Column(1, "AColumnName", I16Sparse), ]}
--c columns -n AColumnName -i 1 -t I32Sparse  -> ListColumnReply {columns=[Column(1, "AColumnName", I32Sparse), ]}
--c columns -n AColumnName -i 1 -t I64Sparse  -> ListColumnReply {columns=[Column(1, "AColumnName", I64Sparse), ]}
--c columns -n AColumnName -i 1 -t I128Sparse -> ListColumnReply {columns=[Column(1, "AColumnName", I128Sparse), ]}
--c columns -n AColumnName -i 1 -t U8Sparse   -> ListColumnReply {columns=[Column(1, "AColumnName", U8Sparse), ]}
--c columns -n AColumnName -i 1 -t U16Sparse  -> ListColumnReply {columns=[Column(1, "AColumnName", U16Sparse), ]}
--c columns -n AColumnName -i 1 -t U32Sparse  -> ListColumnReply {columns=[Column(1, "AColumnName", U32Sparse), ]}
--c columns -n AColumnName -i 1 -t U64Sparse  -> ListColumnReply {columns=[Column(1, "AColumnName", U64Sparse), ]}
--c columns -n AColumnName -i 1 -t U128Sparse -> ListColumnReply {columns=[Column(1, "AColumnName", U128Sparse), ]}
+-c columns -n AColumnName -i 1 -t I8Dense     -> ListColumnReply {columns=[Column(1, "AColumnName", I8Dense), ]}
+-c columns -n AColumnName -i 1 -t I16Dense    -> ListColumnReply {columns=[Column(1, "AColumnName", I16Dense), ]}
+-c columns -n AColumnName -i 1 -t I32Dense    -> ListColumnReply {columns=[Column(1, "AColumnName", I32Dense), ]}
+-c columns -n AColumnName -i 1 -t I64Dense    -> ListColumnReply {columns=[Column(1, "AColumnName", I64Dense), ]}
+-c columns -n AColumnName -i 1 -t I128Dense   -> ListColumnReply {columns=[Column(1, "AColumnName", I128Dense), ]}
+-c columns -n AColumnName -i 1 -t U8Dense     -> ListColumnReply {columns=[Column(1, "AColumnName", U8Dense), ]}
+-c columns -n AColumnName -i 1 -t U16Dense    -> ListColumnReply {columns=[Column(1, "AColumnName", U16Dense), ]}
+-c columns -n AColumnName -i 1 -t U32Dense    -> ListColumnReply {columns=[Column(1, "AColumnName", U32Dense), ]}
+-c columns -n AColumnName -i 1 -t U64Dense    -> ListColumnReply {columns=[Column(1, "AColumnName", U64Dense), ]}
+-c columns -n AColumnName -i 1 -t U128Dense   -> ListColumnReply {columns=[Column(1, "AColumnName", U128Dense), ]}
+-c columns -n AColumnName -i 1 -t StringDense -> ListColumnReply {columns=[Column(1, "AColumnName", StringDense), ]}
+-c columns -n AColumnName -i 1 -t I8Sparse    -> ListColumnReply {columns=[Column(1, "AColumnName", I8Sparse), ]}
+-c columns -n AColumnName -i 1 -t I16Sparse   -> ListColumnReply {columns=[Column(1, "AColumnName", I16Sparse), ]}
+-c columns -n AColumnName -i 1 -t I32Sparse   -> ListColumnReply {columns=[Column(1, "AColumnName", I32Sparse), ]}
+-c columns -n AColumnName -i 1 -t I64Sparse   -> ListColumnReply {columns=[Column(1, "AColumnName", I64Sparse), ]}
+-c columns -n AColumnName -i 1 -t I128Sparse  -> ListColumnReply {columns=[Column(1, "AColumnName", I128Sparse), ]}
+-c columns -n AColumnName -i 1 -t U8Sparse    -> ListColumnReply {columns=[Column(1, "AColumnName", U8Sparse), ]}
+-c columns -n AColumnName -i 1 -t U16Sparse   -> ListColumnReply {columns=[Column(1, "AColumnName", U16Sparse), ]}
+-c columns -n AColumnName -i 1 -t U32Sparse   -> ListColumnReply {columns=[Column(1, "AColumnName", U32Sparse), ]}
+-c columns -n AColumnName -i 1 -t U64Sparse   -> ListColumnReply {columns=[Column(1, "AColumnName", U64Sparse), ]}
+-c columns -n AColumnName -i 1 -t U128Sparse  -> ListColumnReply {columns=[Column(1, "AColumnName", U128Sparse), ]}
 # Column name with spaces
 -c columns -n "A Column name" -i 1 -t I8Dense    -> ListColumnReply {columns=[Column(1, "A Column name", I8Dense), ]}
 # UTF-8 column names
@@ -43,26 +44,27 @@ Hyena -> C++
 # No columns
 -c catalog -> RefreshCatalogReply {columns=[], partitions=#0}
 # All data types
--c catalog -p 1 -n AColumnName -i 1 -t I8Dense    -> RefreshCatalogReply {columns=[Column(1, "AColumnName", I8Dense), ], partitions=#1}
--c catalog -p 1 -n AColumnName -i 1 -t I16Dense   -> RefreshCatalogReply {columns=[Column(1, "AColumnName", I16Dense), ], partitions=#1}
--c catalog -p 1 -n AColumnName -i 1 -t I32Dense   -> RefreshCatalogReply {columns=[Column(1, "AColumnName", I32Dense), ], partitions=#1}
--c catalog -p 1 -n AColumnName -i 1 -t I64Dense   -> RefreshCatalogReply {columns=[Column(1, "AColumnName", I64Dense), ], partitions=#1}
--c catalog -p 1 -n AColumnName -i 1 -t I128Dense  -> RefreshCatalogReply {columns=[Column(1, "AColumnName", I128Dense), ], partitions=#1}
--c catalog -p 1 -n AColumnName -i 1 -t U8Dense    -> RefreshCatalogReply {columns=[Column(1, "AColumnName", U8Dense), ], partitions=#1}
--c catalog -p 1 -n AColumnName -i 1 -t U16Dense   -> RefreshCatalogReply {columns=[Column(1, "AColumnName", U16Dense), ], partitions=#1}
--c catalog -p 1 -n AColumnName -i 1 -t U32Dense   -> RefreshCatalogReply {columns=[Column(1, "AColumnName", U32Dense), ], partitions=#1}
--c catalog -p 1 -n AColumnName -i 1 -t U64Dense   -> RefreshCatalogReply {columns=[Column(1, "AColumnName", U64Dense), ], partitions=#1}
--c catalog -p 1 -n AColumnName -i 1 -t U128Dense  -> RefreshCatalogReply {columns=[Column(1, "AColumnName", U128Dense), ], partitions=#1}
--c catalog -p 1 -n AColumnName -i 1 -t I8Sparse   -> RefreshCatalogReply {columns=[Column(1, "AColumnName", I8Sparse), ], partitions=#1}
--c catalog -p 1 -n AColumnName -i 1 -t I16Sparse  -> RefreshCatalogReply {columns=[Column(1, "AColumnName", I16Sparse), ], partitions=#1}
--c catalog -p 1 -n AColumnName -i 1 -t I32Sparse  -> RefreshCatalogReply {columns=[Column(1, "AColumnName", I32Sparse), ], partitions=#1}
--c catalog -p 1 -n AColumnName -i 1 -t I64Sparse  -> RefreshCatalogReply {columns=[Column(1, "AColumnName", I64Sparse), ], partitions=#1}
--c catalog -p 1 -n AColumnName -i 1 -t I128Sparse -> RefreshCatalogReply {columns=[Column(1, "AColumnName", I128Sparse), ], partitions=#1}
--c catalog -p 1 -n AColumnName -i 1 -t U8Sparse   -> RefreshCatalogReply {columns=[Column(1, "AColumnName", U8Sparse), ], partitions=#1}
--c catalog -p 1 -n AColumnName -i 1 -t U16Sparse  -> RefreshCatalogReply {columns=[Column(1, "AColumnName", U16Sparse), ], partitions=#1}
--c catalog -p 1 -n AColumnName -i 1 -t U32Sparse  -> RefreshCatalogReply {columns=[Column(1, "AColumnName", U32Sparse), ], partitions=#1}
--c catalog -p 1 -n AColumnName -i 1 -t U64Sparse  -> RefreshCatalogReply {columns=[Column(1, "AColumnName", U64Sparse), ], partitions=#1}
--c catalog -p 1 -n AColumnName -i 1 -t U128Sparse -> RefreshCatalogReply {columns=[Column(1, "AColumnName", U128Sparse), ], partitions=#1}
+-c catalog -p 1 -n AColumnName -i 1 -t I8Dense     -> RefreshCatalogReply {columns=[Column(1, "AColumnName", I8Dense), ], partitions=#1}
+-c catalog -p 1 -n AColumnName -i 1 -t I16Dense    -> RefreshCatalogReply {columns=[Column(1, "AColumnName", I16Dense), ], partitions=#1}
+-c catalog -p 1 -n AColumnName -i 1 -t I32Dense    -> RefreshCatalogReply {columns=[Column(1, "AColumnName", I32Dense), ], partitions=#1}
+-c catalog -p 1 -n AColumnName -i 1 -t I64Dense    -> RefreshCatalogReply {columns=[Column(1, "AColumnName", I64Dense), ], partitions=#1}
+-c catalog -p 1 -n AColumnName -i 1 -t I128Dense   -> RefreshCatalogReply {columns=[Column(1, "AColumnName", I128Dense), ], partitions=#1}
+-c catalog -p 1 -n AColumnName -i 1 -t U8Dense     -> RefreshCatalogReply {columns=[Column(1, "AColumnName", U8Dense), ], partitions=#1}
+-c catalog -p 1 -n AColumnName -i 1 -t U16Dense    -> RefreshCatalogReply {columns=[Column(1, "AColumnName", U16Dense), ], partitions=#1}
+-c catalog -p 1 -n AColumnName -i 1 -t U32Dense    -> RefreshCatalogReply {columns=[Column(1, "AColumnName", U32Dense), ], partitions=#1}
+-c catalog -p 1 -n AColumnName -i 1 -t U64Dense    -> RefreshCatalogReply {columns=[Column(1, "AColumnName", U64Dense), ], partitions=#1}
+-c catalog -p 1 -n AColumnName -i 1 -t U128Dense   -> RefreshCatalogReply {columns=[Column(1, "AColumnName", U128Dense), ], partitions=#1}
+-c catalog -p 1 -n AColumnName -i 1 -t StringDense -> RefreshCatalogReply {columns=[Column(1, "AColumnName", StringDense), ], partitions=#1}
+-c catalog -p 1 -n AColumnName -i 1 -t I8Sparse    -> RefreshCatalogReply {columns=[Column(1, "AColumnName", I8Sparse), ], partitions=#1}
+-c catalog -p 1 -n AColumnName -i 1 -t I16Sparse   -> RefreshCatalogReply {columns=[Column(1, "AColumnName", I16Sparse), ], partitions=#1}
+-c catalog -p 1 -n AColumnName -i 1 -t I32Sparse   -> RefreshCatalogReply {columns=[Column(1, "AColumnName", I32Sparse), ], partitions=#1}
+-c catalog -p 1 -n AColumnName -i 1 -t I64Sparse   -> RefreshCatalogReply {columns=[Column(1, "AColumnName", I64Sparse), ], partitions=#1}
+-c catalog -p 1 -n AColumnName -i 1 -t I128Sparse  -> RefreshCatalogReply {columns=[Column(1, "AColumnName", I128Sparse), ], partitions=#1}
+-c catalog -p 1 -n AColumnName -i 1 -t U8Sparse    -> RefreshCatalogReply {columns=[Column(1, "AColumnName", U8Sparse), ], partitions=#1}
+-c catalog -p 1 -n AColumnName -i 1 -t U16Sparse   -> RefreshCatalogReply {columns=[Column(1, "AColumnName", U16Sparse), ], partitions=#1}
+-c catalog -p 1 -n AColumnName -i 1 -t U32Sparse   -> RefreshCatalogReply {columns=[Column(1, "AColumnName", U32Sparse), ], partitions=#1}
+-c catalog -p 1 -n AColumnName -i 1 -t U64Sparse   -> RefreshCatalogReply {columns=[Column(1, "AColumnName", U64Sparse), ], partitions=#1}
+-c catalog -p 1 -n AColumnName -i 1 -t U128Sparse  -> RefreshCatalogReply {columns=[Column(1, "AColumnName", U128Sparse), ], partitions=#1}
 # Many partitions
 -c catalog -p 100 -n AColumnName -i 1 -t I8Dense    -> RefreshCatalogReply {columns=[Column(1, "AColumnName", I8Dense), ], partitions=#100}
 -c catalog -p 1000 -n AColumnName -i 1 -t I8Dense    -> RefreshCatalogReply {columns=[Column(1, "AColumnName", I8Dense), ], partitions=#1000}
@@ -103,7 +105,7 @@ Hyena -> C++
 ## Scan
 # Error response, all error types
 -c scan -e ColumnNameAlreadyExists -w comment -> ScanReply {error="Column name already exists (comment)"}
--c scan -e ColumnIdAlreadyExists   -w 10 -> ScanReply {error="Column id already exists (id: 10)"}
+-c scan -e ColumnIdAlreadyExists   -w 10      -> ScanReply {error="Column id already exists (id: 10)"}
 -c scan -e ColumnNameCannotBeEmpty -w comment -> ScanReply {error="Column name cannot be empty"}
 -c scan -e NoData                  -w comment -> ScanReply {error="No data (comment)"}
 -c scan -e InconsistentData        -w comment -> ScanReply {error="Inconsistent data (comment)"}
@@ -121,6 +123,7 @@ Hyena -> C++
 -c scan -i 0 -t I64Dense -d 1     -> ScanReply {data=[{id=0, type=I64Dense, block=#1}, ]}
 # Not implemented yet
 # -c scan -i 0 -t I128Dense -d 1  -> ScanReply {data=[{id=0, type=I128Dense, block=#1}, ]}
+-c scan -i 0 -t StringDense -d 1  -> ScanReply {data=[{id=0, type=StringDense, block=#1}, ]}
 -c scan -i 0 -t U8Dense -d 1      -> ScanReply {data=[{id=0, type=U8Dense, block=#1}, ]}
 -c scan -i 0 -t U16Dense -d 1     -> ScanReply {data=[{id=0, type=U16Dense, block=#1}, ]}
 -c scan -i 0 -t U32Dense -d 1     -> ScanReply {data=[{id=0, type=U32Dense, block=#1}, ]}
